@@ -124,4 +124,16 @@ public class JoinServiceTest {
                 }
         );
     }
+
+    @Test
+    @DisplayName("비밀번호, 비밀번호 확인 입력 데이터 일치여부 체크, 검증 실패시 BadRequestException 발생")
+    void passwordConfirmCheck() {
+        BadRequestException thrown = assertThrows(BadRequestException.class, () -> {
+            Member member = getMember();
+            member.setConfirmUserPw(member.getUserPw() + "**");
+            joinService.join(member);
+        });
+
+        assertTrue(thrown.getMessage().contains("비밀번호가 일치"));
+    }
 }
