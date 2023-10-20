@@ -1,5 +1,6 @@
 package tests;
 
+import commons.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
 import models.member.JoinService;
 import models.member.LoginService;
@@ -67,6 +68,32 @@ public class LoginServiceTest {
     @Test
     @DisplayName("필수 항목 검증(아이디, 비밀번호), 검증 실패시 BadRequestException 발생")
     void requiredFieldCheck() {
-        
+        assertAll(
+                () -> {
+                    // 아이디 검증
+                    createRequestData(null, member.getUserPw());
+                    fieldEachCheck(request, "아이디");
+
+                    createRequestData("  ", member.getUserPw());
+                    fieldEachCheck(request, "아이디");
+                },
+                () -> {
+                    // 비밀번호 검증
+                    createRequestData(member.getUserId(), null);
+                    fieldEachCheck(request, "비밀번호");
+                    
+                    createRequestData(member.getUserId(), "   ");
+                    fieldEachCheck(request, "비밀번호");
+                }
+        );
+    }
+
+    private void fieldEachCheck(HttpServletRequest request, String word) {
+        BadRequestException thrown = assertThrows(BadRequestException.class, () -> {
+            loginService.login(request);
+        });
+
+        assertTrue(thrown.getMessage().contains(word));
+
     }
 }
