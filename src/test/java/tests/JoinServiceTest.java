@@ -42,7 +42,7 @@ public class JoinServiceTest {
     @DisplayName("필수 항목 검증(아이디, 비밀번호, 비밀번호 확인, 회원명, 이메일, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
     void requiredFieldCheck() {
         // 아이디(userId)가 null 또는 빈값("")
-        assertThrows(BadRequestException.class, () -> {
+        BadRequestException thrown = assertThrows(BadRequestException.class, () -> {
             Member member = getMember();
 
             member.setUserId(null);
@@ -51,5 +51,27 @@ public class JoinServiceTest {
             member.setUserId("   ");
             joinService.join(member);
         });
+
+        String message = thrown.getMessage();
+        //assertEquals("아이디를 입력하세요.", message);
+        assertTrue(message.contains("아이디"));
+
+        // 비밀번호(userPw)가 null 또는 빈값("")
+        assertThrows(BadRequestException.class, () -> {
+            Member member = getMember();
+
+            member.setUserPw(null);
+            joinService.join(member);
+
+            member.setUserId("   ");
+            joinService.join(member);
+        });
+    }
+
+    private void requiredFieldEachCheck(Member member, String word) {
+        BadRequestException thrown = assertThrows(BadRequestException.class, () -> {
+            joinService.join(member);
+        });
+        assertTrue(thrown.getMessage().contains(word));
     }
 }
