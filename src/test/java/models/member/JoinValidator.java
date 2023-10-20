@@ -18,5 +18,8 @@ public class JoinValidator implements Validator<Member>, RequiredValidator {
         requiredTrue(member.isAgree(), new BadRequestException("회원가입 약관에 동의하세요."));
         // 필수 항목 검증 E
 
+        // 아이디, 비밀번호 자리수 체크 S
+
+        // 아이디, 비밀번호 자리수 체크 E
     }
 }

@@ -110,9 +110,18 @@ public class JoinServiceTest {
     @DisplayName("아이디(6자리 이상), 비밀번호(8자리 이상) 최소 자리수 체크, 실패시 BadRequestException 발생")
     void fieldLengthCheck() {
         assertAll(
-
+                () -> {
+                    // 아이디 6자리 이상 검증
+                    Member member = getMember();
+                    member.setUserId("user");
+                    fieldEachCheck(member, "아이디는 6자리");
+                },
+                () -> {
+                    // 비밀번호 8자리 이상 검증
+                    Member member =getMember();
+                    member.setUserPw("1234");
+                    fieldEachCheck(member, "비밀번호는 8자리");
+                }
         );
     }
-
-
 }
