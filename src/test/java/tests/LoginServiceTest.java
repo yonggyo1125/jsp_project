@@ -2,6 +2,7 @@ package tests;
 
 import commons.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import models.member.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +26,9 @@ public class LoginServiceTest {
     @Mock
     private HttpServletRequest request;
 
+    @Mock
+    private HttpSession session;
+
     private Member member;
 
     @BeforeEach
@@ -34,6 +38,8 @@ public class LoginServiceTest {
         member = getMember();
         JoinService joinService = ServiceManager.getInstance().joinService();
         joinService.join(member);
+
+        given(request.getSession()).willReturn(session);
     }
 
     private Member getMember() {
