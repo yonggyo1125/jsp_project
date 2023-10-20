@@ -2,10 +2,7 @@ package tests;
 
 import commons.BadRequestException;
 import jakarta.servlet.http.HttpServletRequest;
-import models.member.JoinService;
-import models.member.LoginService;
-import models.member.Member;
-import models.member.ServiceManager;
+import models.member.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +29,7 @@ public class LoginServiceTest {
 
     @BeforeEach
     void init() {
-        loginService = new LoginService();
+        loginService = ServiceManager.getInstance().loginService();
 
         member = getMember();
         JoinService joinService = ServiceManager.getInstance().joinService();
@@ -95,5 +92,14 @@ public class LoginServiceTest {
 
         assertTrue(thrown.getMessage().contains(word));
 
+    }
+
+    @Test
+    @DisplayName("아이디에 해당하는 회원 정보가 있는지 체크, 검증 실패시 MemberNotFoundException")
+    void memberExistsCheck() {
+        assertThrows(MemberNotFoundException.class, () -> {
+            createRequestData(member.getUserId() + "**", member.getUserPw());
+            loginService.login(request);
+        });
     }
 }
