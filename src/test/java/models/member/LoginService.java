@@ -19,6 +19,9 @@ public class LoginService {
         validator.check(request);
 
         // 로그인 처리
+        String userId = request.getParameter("userId");
+        Member member = memberDao.get(userId);
         HttpSession session = request.getSession();
+        session.setAttribute("member", member);
     }
 }
