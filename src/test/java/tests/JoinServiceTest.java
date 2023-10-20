@@ -41,31 +41,63 @@ public class JoinServiceTest {
     @Test
     @DisplayName("필수 항목 검증(아이디, 비밀번호, 비밀번호 확인, 회원명, 이메일, 회원가입약관 동의), 검증 실패시 BadRequestException 발생")
     void requiredFieldCheck() {
-        // 아이디(userId)가 null 또는 빈값("")
-        BadRequestException thrown = assertThrows(BadRequestException.class, () -> {
-            Member member = getMember();
+        assertAll(
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
+                    
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                },
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
 
-            member.setUserId(null);
-            joinService.join(member);
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                },
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
 
-            member.setUserId("   ");
-            joinService.join(member);
-        });
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                },
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
 
-        String message = thrown.getMessage();
-        //assertEquals("아이디를 입력하세요.", message);
-        assertTrue(message.contains("아이디"));
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                },
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
 
-        // 비밀번호(userPw)가 null 또는 빈값("")
-        assertThrows(BadRequestException.class, () -> {
-            Member member = getMember();
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                },
+                () -> {
+                    // 아이디 검증(userId)
+                    Member member = getMember();
+                    member.setUserId(null);
+                    requiredFieldEachCheck(member, "아이디");
 
-            member.setUserPw(null);
-            joinService.join(member);
+                    member.setUserId("  ");
+                    requiredFieldEachCheck(member, "아이디");
+                }
+        )
 
-            member.setUserId("   ");
-            joinService.join(member);
-        });
     }
 
     private void requiredFieldEachCheck(Member member, String word) {
