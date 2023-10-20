@@ -1,17 +1,30 @@
 package tests;
 
 import commons.BadRequestException;
+import jakarta.servlet.http.HttpServletRequest;
 import models.member.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
 
 @DisplayName("회원가입 기능 단위테스트")
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.WARN)
 public class JoinServiceTest {
 
+
     private JoinService joinService;
+
+    @Mock
+    private HttpServletRequest request;
 
     @BeforeEach
     void init() {
@@ -38,6 +51,20 @@ public class JoinServiceTest {
 
             joinService.join(getMember());
         });
+    }
+
+    @Test
+    @DisplayName("HttpServletRequest 요청 데이터로 성공 테스트")
+    void joinSuccessByRequest() {
+        Member member = getMember();
+        given(request.getParameter("userId")).willReturn(member.getUserId());
+        given(request.getParameter("userPw")).willReturn(member.getUserPw());
+        given(request.getParameter("confirmUserPw")).willReturn(member.getConfirmUserPw());
+        given(request.getParameter("userNm")).willReturn(member.getUserNm());
+        given(request.getParameter("email")).willReturn(member.getEmail());
+        given(request.getParameter("agree")).willReturn("" + member.isAgree());
+
+        joinService.join(request);
     }
 
     @Test
