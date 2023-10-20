@@ -52,51 +52,48 @@ public class JoinServiceTest {
                     requiredFieldEachCheck(member, "아이디");
                 },
                 () -> {
-                    // 아이디 검증(userId)
+                    // 비밀번호 검증(userPw)
                     Member member = getMember();
-                    member.setUserId(null);
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setUserPw(null);
+                    requiredFieldEachCheck(member, "비밀번호");
 
-                    member.setUserId("  ");
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setUserPw("  ");
+                    requiredFieldEachCheck(member, "비밀번호");
                 },
                 () -> {
-                    // 아이디 검증(userId)
+                    // 비밀번호 확인(confirmUserPw)
                     Member member = getMember();
-                    member.setUserId(null);
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setConfirmUserPw(null);
+                    requiredFieldEachCheck(member, "비밀번호를 확인");
 
-                    member.setUserId("  ");
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setConfirmUserPw("  ");
+                    requiredFieldEachCheck(member, "비밀번호를 확인");
                 },
                 () -> {
-                    // 아이디 검증(userId)
+                    // 회원명 검증(userNm)
                     Member member = getMember();
-                    member.setUserId(null);
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setUserNm(null);
+                    requiredFieldEachCheck(member, "회원명");
 
-                    member.setUserId("  ");
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setUserNm("  ");
+                    requiredFieldEachCheck(member, "회원명");
                 },
                 () -> {
-                    // 아이디 검증(userId)
+                    // 이메일 검증(email)
                     Member member = getMember();
-                    member.setUserId(null);
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setEmail(null);
+                    requiredFieldEachCheck(member, "이메일");
 
-                    member.setUserId("  ");
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setEmail("  ");
+                    requiredFieldEachCheck(member, "이메일");
                 },
                 () -> {
-                    // 아이디 검증(userId)
+                    // 약관 동의 검증(agree)
                     Member member = getMember();
-                    member.setUserId(null);
-                    requiredFieldEachCheck(member, "아이디");
-
-                    member.setUserId("  ");
-                    requiredFieldEachCheck(member, "아이디");
+                    member.setAgree(false);
+                    requiredFieldEachCheck(member, "약관");
                 }
-        )
+        );
 
     }
 
