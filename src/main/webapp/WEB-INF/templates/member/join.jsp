@@ -4,7 +4,7 @@
 <c:url var="action" value="/member/join" />
 <layout:main title="회원가입">
     <h1>회원가입</h1>
-    <form method="post" action="${action}">
+    <form method="post" action="${action}" target="ifrmProcess">
         <dl>
             <dt>아이디</dt>
             <dd>
