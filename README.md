@@ -32,3 +32,9 @@
     - GET : 회원가입 양식 
     - POST : 회원가입 처리
   - View : /WEB-INF/templates/member/join.jsp
+- 로그인 
+  - Controller : /member/login
+    - controllers/member/LoginController.java
+    - GET : 로그인 양식 
+    - POST : 로그인 처리 
+  - View : /WEB-INF/templates/member/login.jsp
