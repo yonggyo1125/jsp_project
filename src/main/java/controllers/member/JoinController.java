@@ -10,6 +10,7 @@ import models.member.JoinService;
 import models.member.ServiceManager;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/member/join")
 public class JoinController extends HttpServlet {
@@ -22,9 +23,15 @@ public class JoinController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            JoinService service = ServiceManager.getInstance().joinService();
+            service.join(req);
+        } catch (RuntimeException e) {
+            resp.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.printf("<script>alert('%s');</script>", e.getMessage());
 
-        JoinService service = ServiceManager.getInstance().joinService();
-        service.join(req);
-
+            e.printStackTrace();
+        }
     }
 }
