@@ -26,10 +26,11 @@ public class JoinController extends HttpServlet {
         try {
             JoinService service = ServiceManager.getInstance().joinService();
             service.join(req);
+
         } catch (RuntimeException e) {
             resp.setContentType("text/html; charset=UTF-8");
             PrintWriter out = resp.getWriter();
-            out.printf("<script>alert('%s');history.back();</script>", e.getMessage());
+            out.printf("<script>alert('%s');</script>", e.getMessage());
 
             e.printStackTrace();
         }
