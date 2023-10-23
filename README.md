@@ -49,3 +49,17 @@
   - Controller 
     - controllers/member/LogoutController.java
   - GET, POST 메서드 상관 없이 기능 할 수 있도록 처리 
+
+## 완성 화면
+### 회원가입
+
+![회원가입](https://raw.githubusercontent.com/yonggyo1125/jsp_project/Description/images/join.png)
+
+### 로그인 
+
+![메인페이지](https://raw.githubusercontent.com/yonggyo1125/jsp_project/Description/images/login.png)
+
+### 메인페이지 
+
+![메인페이지](https://raw.githubusercontent.com/yonggyo1125/jsp_project/Description/images/main.png)
+
